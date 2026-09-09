@@ -22,6 +22,8 @@ Streamlit 版本會將 PDF 傳到雲端記憶體解析，不寫入成績單檔�
 
 ## 素材
 
+- 首次載入的山林線描動畫：使用者提供的動畫包，作者 zanina-yassine／Uiverse，MIT 授權見 `assets/mountain-loader-LICENSE.txt`。載入完成即淡出；Streamlit 平台自身的啟動畫面不受本程式控制。
+
 - 視覺參考：使用者提供的 Gallery03・留白插畫／Utsusemi Design。保留作者署名；本專案 HTML、CSS 與互動程式另行撰寫。
 - `assets/yuru-camp.gif`：使用者提供的素材，原檔不變。不宣稱擁有角色或插畫著作權，不將它列為開源程式授權素材。
 - `core/` 重用原版解析器、分類工具與規則設定，未修改已確認規則。未加入個人成績、帳號或權杖。

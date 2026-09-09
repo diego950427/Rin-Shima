@@ -11,7 +11,7 @@ st.set_page_config(page_title='UT-checker', layout='wide', initial_sidebar_state
 
 
 @st.cache_resource
-def frontend_directory():
+def frontend_directory(revision):
     # Serve only public UI assets, never the repository or backend source.
     folder = Path(tempfile.mkdtemp(prefix='ut-checker-ui-'))
     for name in ('assets', 'css', 'js'):
@@ -40,7 +40,11 @@ header[data-testid="stHeader"], [data-testid="stToolbar"] {display:none;}
 iframe[title$="ut_checker_ui"] {width:100%;height:100dvh!important;display:block;border:0;}
 .stMain {overflow:hidden;}
 </style>''', unsafe_allow_html=True)
-component = components.declare_component('ut_checker_ui', path=frontend_directory())
+# Invalidate packaged UI when tracked frontend files change during hot reload.
+ui_files = [ROOT / 'index.html', ROOT / 'forms.js', ROOT / 'app.js']
+ui_files += [p for folder in ('assets', 'css', 'js') for p in (ROOT / folder).rglob('*') if p.is_file()]
+ui_revision = tuple((str(p.relative_to(ROOT)), p.stat().st_mtime_ns, p.stat().st_size) for p in sorted(ui_files))
+component = components.declare_component('ut_checker_ui', path=frontend_directory(ui_revision))
 event = component(response=st.session_state.get('ut_response'), key='ut_ui', default=None)
 if isinstance(event, dict):
     if event.get('kind') in ('ack', 'clear'):
