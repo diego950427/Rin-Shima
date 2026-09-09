@@ -19,6 +19,15 @@ def frontend_directory():
     for name in ('app.js', 'forms.js'):
         shutil.copy2(ROOT / name, folder / name)
     html = (ROOT / 'index.html').read_text(encoding='utf-8')
+    # Components v1 disables iframe viewport scrolling. Use an explicit element
+    # scroller so wheel, touch, keyboard and sticky illustration work inside it.
+    html = html.replace('</head>', '''<style>
+html, body {height:100%;overflow:hidden;}
+.cloud-scroll {height:100dvh;overflow-y:auto;overflow-x:hidden;scroll-behavior:smooth;}
+@media(prefers-reduced-motion:reduce) {.cloud-scroll {scroll-behavior:auto;}}
+</style></head>''')
+    html = html.replace('<body>', '<body><div class="cloud-scroll" tabindex="0" aria-label="學分規劃內容">')
+    html = html.replace('</body>', '</div></body>')
     html = html.replace('<script src="forms.js">', '<script src="js/cloud-transport.js"></script>\n <script src="forms.js">')
     (folder / 'index.html').write_text(html, encoding='utf-8')
     return str(folder)
@@ -28,7 +37,7 @@ st.markdown('''<style>
 header[data-testid="stHeader"], [data-testid="stToolbar"] {display:none;}
 .stMainBlockContainer {padding:0!important;max-width:none!important;}
 [data-testid="stVerticalBlock"] {gap:0;}
-iframe[title="ut_checker_ui"] {width:100%;height:100dvh!important;display:block;border:0;}
+iframe[title$="ut_checker_ui"] {width:100%;height:100dvh!important;display:block;border:0;}
 .stMain {overflow:hidden;}
 </style>''', unsafe_allow_html=True)
 component = components.declare_component('ut_checker_ui', path=frontend_directory())
