@@ -93,5 +93,7 @@ def audit_courses(courses, diagnostics, settings):
   if '領域選修' in label: return 3
   return {'系內其他選修':4,'自由選修':5,'雙主修':7,'輔系':7}.get(label,6)
  return {'rows':[{k:float(v) if isinstance(v,Decimal) else v for k,v in g.items()} for g in sorted(groups.values(),key=order)],
-         'total':total_progress(snapshot), 'snapshot':snapshot.snapshot_id, 'primary':primary_id, 'target':target_id,
+         'total':total_progress(snapshot), 'secondaryTotal':total_progress(snapshot, secondary=True) if target_id else None,
+         'secondaryLabel':plan if target_id else None,
+         'snapshot':snapshot.snapshot_id, 'primary':primary_id, 'target':target_id,
          'note':'各類分開核對，不相加作為總畢業學分；待確認不等於通過。'}

@@ -1,7 +1,28 @@
 // Lieflat L5 Radial Convergence / lupi-gallery.html, actual allocation records.
-function drawConvergence(total, container, observer, el) {
+function drawConvergence(total, container, observer, el, secondaryTotal=null, secondaryLabel='雙主修') {
+ if(secondaryTotal){
+  const wrapper=document.createElement('section');wrapper.className='program-progress';
+  const switcher=document.createElement('div');switcher.className='program-switch';
+  const input=document.createElement('input');input.type='checkbox';input.id='progress-program-switch';input.setAttribute('role','switch');input.setAttribute('aria-label',`切換主修／${secondaryLabel}`);
+  const label=document.createElement('label');label.htmlFor=input.id;
+  const words=document.createElement('span');words.className='program-switch-words';words.setAttribute('aria-hidden','true');
+  ['主修',secondaryLabel].forEach((text,i)=>{const span=document.createElement('span');span.className=i?'checked':'unchecked';span.textContent=text;words.append(span);});
+  label.append(words);switcher.append(input,label);
+  const panels=document.createElement('div');panels.className='program-progress-panels';
+  const primary=document.createElement('div'),secondary=document.createElement('div');
+  primary.setAttribute('aria-label','主修學分');secondary.setAttribute('aria-label',`${secondaryLabel}學分`);
+  secondary.hidden=true;panels.append(primary,secondary);wrapper.append(switcher,panels);container.append(wrapper);
+  drawConvergence({...total,title:'主修學分'},primary,observer,el);
+  drawConvergence({...secondaryTotal,title:`${secondaryLabel}學分`},secondary,observer,el);
+  input.addEventListener('change',()=>{
+   primary.hidden=input.checked;secondary.hidden=!input.checked;
+   const active=input.checked?secondary:primary;
+   if(!matchMedia('(prefers-reduced-motion: reduce)').matches)active.animate([{opacity:.35},{opacity:1}],{duration:240,easing:'ease-out'});
+  });
+  return;
+ }
  const box=document.createElement('section');box.className='total-ring convergence';
- const title=document.createElement('h3');title.textContent='總畢業學分';box.append(title);
+ const title=document.createElement('h3');title.textContent=total?.title||'主修學分';box.append(title);
  const value=document.createElement('p');value.className='convergence-total';value.textContent=total?.available?`${total.completed} / ${total.required} 學分`:'總學分待確認';box.append(value);
  if(!total?.mapping_valid || !total?.partition_valid){const note=document.createElement('p');note.textContent='總學分分類尚待確認，暫不補畫缺失線。';box.append(note);container.append(box);return;}
  const all=[...total.records,...total.gaps];

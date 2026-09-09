@@ -67,7 +67,7 @@ function drawAudit(data) {
  auditChart.append(scroll);
  chartObserver=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');chartObserver.unobserve(e.target);}});},{threshold:.15});
  scroll.querySelectorAll('svg').forEach(svg=>chartObserver.observe(svg));
- drawConvergence(data.total, auditChart, chartObserver, svgNode);
+ drawConvergence(data.total, auditChart, chartObserver, svgNode, data.secondaryTotal, data.secondaryLabel);
 }
 
 // F4 Tick Donut: 100 radial tick positions, grayscale sectors, central value.

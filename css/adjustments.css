@@ -22,6 +22,24 @@
 .total-ring { text-align:center; margin-top:48px; }
 .convergence svg { width:100%; max-width:900px; font-family:inherit; }
 .convergence-total { font-size:24px; margin:14px 0; }
+/* Text-state switch adapted from Uiverse.io by Bodyhc. */
+.program-progress { position:relative; margin-top:48px; }
+.program-progress .total-ring { margin-top:0; }
+.program-switch { display:flex; justify-content:flex-end; margin-bottom:12px; }
+.program-switch input { position:absolute; width:1px; height:1px; opacity:0; }
+.program-switch label { position:relative; display:flex; align-items:center; min-height:44px; cursor:pointer; color:var(--color-text); font-family:"Source Han Serif TC",serif; font-size:16px; line-height:24px; user-select:none; }
+.program-switch label::before { content:""; width:30px; height:18px; border-radius:20px; background:var(--color-main); margin-right:10px; transition:background-color .18s ease-out; }
+.program-switch label::after { content:""; position:absolute; left:2px; top:15px; width:14px; height:14px; border-radius:50%; background:var(--color-bg); transition:transform .18s ease-out; }
+.program-switch input:checked + label::before { background:#995864; }
+.program-switch input:checked + label::after { transform:translateX(12px); }
+.program-switch input:focus-visible + label { outline:2px solid var(--color-main); outline-offset:4px; }
+.program-switch-words { position:relative; width:4em; height:24px; overflow:hidden; font-weight:600; }
+.program-switch-words > span { position:absolute; inset:0; transition:transform .18s ease-out,opacity .18s ease-out; }
+.program-switch-words .checked { transform:translateY(100%); opacity:0; }
+.program-switch input:checked + label .unchecked { transform:translateY(-100%); opacity:0; }
+.program-switch input:checked + label .checked { transform:translateY(0); opacity:1; }
+.program-progress-panels > [hidden] { display:none; }
+@media(prefers-reduced-motion:reduce) { .program-switch label::before,.program-switch label::after,.program-switch-words > span { transition:none; } }
 .convergence-readout { height:84px; overflow:auto; white-space:pre-line; font-size:16px; }
 .convergence [role=button] { cursor:pointer; }
 .convergence-path { stroke-dasharray:1; stroke-dashoffset:1; }

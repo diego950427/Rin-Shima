@@ -41,9 +41,22 @@ def missing_candidates(req, registries, attempts):
   items.append({'name':name,'mode':mode,'offerings':offerings})
  return items
 
-def total_progress(snapshot):
+def total_progress(snapshot, secondary=False):
  stats=statistics_projection_from_payload(snapshot.as_dict())
  total=dict(build_chart_datasets(stats, snapshot_id=snapshot.snapshot_id)['f11'])
+ def selected(req):
+  role=(req.owner or req.role or req.curriculum_role).lower()
+  return role in {'target','secondary','double_major','minor'} if secondary else role=='primary'
+ def label_for(req):
+  if secondary:
+   return {'required':'指定必修','other_required':'其他開設課程','elective':'選修課程'}.get(req.bucket,req.name)
+  return category_title({'bucket':req.bucket,'name':req.name})
+ if secondary:
+  results=[snapshot.allocation.requirement_for(r.requirement_id) for r in snapshot.requirements if selected(r) and r.credits_required>0]
+  results=[r for r in results if r]
+  total={'available':bool(results),
+         'completed':sum(float(min(r.effective_credits,r.required_credits)) for r in results),
+         'required':sum(float(r.required_credits) for r in results)}
  if total.get('available'):
   total['completed']=float(total['completed']); total['required']=float(total['required'])
  requirements={r.requirement_id:r for r in snapshot.requirements}
@@ -52,9 +65,10 @@ def total_progress(snapshot):
  for allocation in snapshot.allocation.allocations:
   for portion in allocation.portions:
    req=requirements.get(portion.requirement_id)
-   if not req or portion.allocation_kind!='EXCLUSIVE' or portion.credits<=0: continue
-   if (req.owner or req.role or req.curriculum_role).lower()!='primary': continue
-   label=category_title({'bucket':req.bucket,'name':req.name})
+   kinds={'EXCLUSIVE','SHARED_SHADOW'} if secondary else {'EXCLUSIVE'}
+   if not req or portion.allocation_kind not in kinds or portion.credits<=0: continue
+   if not selected(req): continue
+   label=label_for(req)
    key=(portion.attempt_id,label)
    record=records.setdefault(key,{'name':attempts[portion.attempt_id].course_name,'category':label,'credits':0})
    record['credits']+=float(portion.credits)
@@ -64,8 +78,8 @@ def total_progress(snapshot):
  # exact primary graduation denominator. Never force overlapping gates to fit.
  targets={}
  for req in snapshot.requirements:
-  if (req.owner or req.role or req.curriculum_role).lower()=='primary' and req.credits_required>0:
-   label=category_title({'bucket':req.bucket,'name':req.name})
+  if selected(req) and req.credits_required>0:
+   label=label_for(req)
    targets[label]=targets.get(label,0)+float(req.credits_required)
  gaps=[]
  for category, required in targets.items():
