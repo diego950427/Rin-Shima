@@ -1,0 +1,9 @@
+[browser]
+gatherUsageStats = false
+
+[server]
+maxUploadSize = 20
+maxMessageSize = 40
+
+[theme]
+base = "light"

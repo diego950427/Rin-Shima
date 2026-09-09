@@ -1,0 +1,46 @@
+/* Original Gallery03 fonts, served locally. */
+@font-face {
+ font-family: "Source Han Serif TC";
+ src: url("../assets/fonts/source-han-serif-tc-regular.otf") format("opentype");
+ font-style: normal;
+ font-weight: 400;
+ font-display: swap;
+}
+@font-face {
+ font-family: "Outfit";
+ src: url("../assets/fonts/outfit-regular.ttf") format("truetype");
+ font-style: normal;
+ font-weight: 400;
+ font-display: swap;
+}
+@font-face {
+ font-family: "Outfit";
+ src: url("../assets/fonts/outfit-bold.ttf") format("truetype");
+ font-style: normal;
+ font-weight: 700;
+ font-display: swap;
+}
+@font-face {
+ font-family: "LINE Seed JP";
+ src: url("../assets/fonts/line-seed-jp.ttf") format("truetype");
+ font-style: normal;
+ font-weight: 400;
+ font-display: swap;
+}
+
+/*  カラー設定 */
+:root {
+ --color-bg: #fafafa;
+ --color-text: #292929;
+ --color-main: #434343;
+ --color-sub: #efefef;
+ --color-accent: #df6a78;
+ --color-black: #313131;
+ --color-white: #ffffff;
+}
+
+/*  フォント設定 */
+:root {
+ --font-base: "Outfit", YuGothic, "Yu Gothic medium", "Hiragino Sans", Meiryo, "sans-serif";
+ --font-title: "Outfit", "LINE Seed JP", YuGothic, "Yu Gothic medium", "Hiragino Sans", Meiryo, "sans-serif";
+}

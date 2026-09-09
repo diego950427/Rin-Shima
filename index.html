@@ -1,60 +1,90 @@
 <!doctype html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="UT-checker 學分規劃工具・外觀預覽">
-  <title>UT-checker</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="app.js" defer></script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>UT-checker</title>
+ <link href="css/reset.css" rel="stylesheet">
+ <link href="css/common.css" rel="stylesheet">
+ <link href="css/each.css" rel="stylesheet">
+ <link href="css/adjustments.css" rel="stylesheet">
 </head>
 <body>
-  <!-- Gallery03 reference: white space, outlined headings, thick rounded image frame.
-       User-provided animated image on the left. Visual prototype only, no student data. -->
-  <a class="skip" href="#main">跳到主要內容</a>
-  <header class="site-header">
-    <a class="wordmark" href="#">UT-checker<span class="brand-dot">.</span></a>
-    <button class="menu-toggle" aria-label="開啟選單" aria-expanded="false" aria-controls="navigation"><span></span><span></span></button>
-    <nav id="navigation" hidden aria-label="主選單">
-      <a href="#main">首頁</a><a href="#features">功能介紹</a><a href="#preview">預覽說明</a>
-    </nav>
-  </header>
-  <main id="main" class="layout">
-    <aside class="illustration" aria-label="搖曳露營插畫">
-      <div class="image-frame">
-        <img id="art" src="assets/yuru-camp.gif" width="600" height="864" alt="搖曳露營角色圍著圍巾，坐在 YURU CAMP 看板旁的動畫插畫">
-        <canvas id="still" width="600" height="864" hidden aria-hidden="true"></canvas>
-        <button id="motion" class="motion-button" aria-pressed="false">暫停動畫</button>
-      </div>
-    </aside>
-    <div class="content">
-      <section class="intro">
-        <h1 class="outline">UT-checker</h1>
-        <h2>課修到哪，<br>一眼就知道。</h2>
-        <p class="intro-copy">把成績整理好，再慢慢安排下一步。<br>你的主修、通識與雙主修，都有自己的位置。</p>
-        <div class="actions">
-          <a class="button primary" href="#preview">開始檢查 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 5l7 7-7 7"/></svg></a>
-          <a class="text-link" href="#features">先看看功能</a>
-        </div>
-        <p class="preview-note">目前為外觀預覽，尚未連接成績匯入與學分計算。</p>
-      </section>
-      <section id="features" class="features">
-        <h2 class="outline">可以做什麼</h2>
-        <p class="section-copy">預計保留的功能，換一個更清楚的樣子。</p>
-        <dl>
-          <div><dt>成績一覽</dt><dd>通識放一起，其他課程按學期整理。</dd></div>
-          <div><dt>畢業審核</dt><dd>分清每個類別，看看還缺哪些學分。</dd></div>
-          <div><dt>雙主修規劃</dt><dd>獨立呈現課程要求，不和主修混在一起。</dd></div>
-          <div><dt>時段查課</dt><dd>先選有空的時段，再找想修的課。</dd></div>
-        </dl>
-      </section>
-      <section id="preview" class="preview" tabindex="-1">
-        <h2 class="outline">先看外觀</h2>
-        <p>這是 UT-checker 的第一版封面。先確認版面與風格，再接上原本的功能；現在不會上傳、保存或分析任何成績資料。</p>
-        <a class="text-link" href="https://utaipei-credit-checker.streamlit.app/" target="_blank" rel="noopener noreferrer">前往原版畢業通 <span aria-hidden="true">↗</span></a>
-      </section>
-      <footer>UT-checker · 個人學分規劃<br><span>視覺參考 Gallery03／<a href="https://hiro-design.net/utsusemi/" target="_blank" rel="noopener noreferrer">Utsusemi Design</a>。插畫由使用者提供。</span></footer>
+ <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><filter id="outline" x="-10%" y="-10%" width="120%" height="120%"><feMorphology operator="dilate" radius="2" in="SourceGraphic" result="expanded"/><feFlood flood-color="currentcolor" result="color"/><feComposite in="color" in2="expanded" operator="in" result="outline"/><feMerge><feMergeNode in="outline"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs></svg>
+ <header class="header"><div class="header-inner">
+  <h1 class="sitename"><a href="index.html">UT-checker</a></h1>
+  <button id="js-hamburger" class="hamburger" aria-label="開啟選單" aria-expanded="false" aria-controls="js-globalnav"><span class="hamburger__line"></span></button>
+  <nav id="js-globalnav" class="globalnav" aria-label="主選單"><ul class="globalnav__main">
+   <li class="globalnav__item"><a href="#information">首頁</a></li>
+   <li class="globalnav__item"><a href="#about">功能</a></li>
+  </ul></nav>
+ </div></header>
+ <main class="mainwrapper" id="js-main"><div class="fv --2column">
+  <div class="fv_illust"><img src="assets/yuru-camp-pingpong.gif" alt="搖曳露營角色動畫，正放後倒放循環"></div>
+  <div class="fv_text">
+   <section id="information">
+    <h2 class="headingL">UT-checker</h2>
+    <div class="update__wrap">
+     <h3 class="headingM" id="update-heading">Update</h3>
+     <ul class="update" tabindex="0" aria-labelledby="update-heading">
+      <li class="update__item"><time datetime="2026-09-09">2026/09/09</time><span>接上本機成績單上傳，加入主修、雙主修與輔系設定。</span></li>
+      <li class="update__item"><time datetime="2026-09-09">2026/09/09</time><span>加入檢查入口與使用說明，沿用日式留白與準星按鈕。</span></li>
+      <li class="update__item"><time datetime="2026-09-09">2026/09/09</time><span>加回更新紀錄框。</span></li>
+      <li class="update__item"><time datetime="2026-09-09">2026/09/09</time><span>恢復版面大小，圖片完整顯示，移除多餘介紹文字。</span></li>
+      <li class="update__item"><time datetime="2026-09-09">2026/09/09</time><span>修正動畫異常綠色，保留正放、倒放循環。</span></li>
+      <li class="update__item"><time datetime="2026-09-09">2026/09/09</time><span>換回框架原本的 Outfit 字體。</span></li>
+     </ul>
     </div>
-  </main>
+   </section>
+   <section id="about">
+    <h2 class="headingL">About</h2>
+    <form id="study-settings" class="study-form">
+     <div class="field-grid">
+      <label>入學年度<select name="admission" class="year-select" data-default="113" required></select></label>
+      <label>主修手冊年度<select name="handbook" class="year-select" data-default="113" required></select></label>
+      <label>主修系所／組別<select name="primary" class="program-select" required></select></label>
+      <label>修讀規劃<select name="plan"><option>單主修</option><option>雙主修</option><option>輔系</option></select></label>
+     </div>
+     <fieldset id="secondary-settings" hidden disabled>
+      <legend>雙主修／輔系</legend>
+      <div class="field-grid">
+       <label>目標課表年度<select name="targetYear" class="year-select" data-default="114" required></select></label>
+       <label>目標系所／組別<select name="target" class="program-select" required></select></label>
+      </div>
+     </fieldset>
+     <button class="crosshair-button" type="submit"><span>套用設定</span></button>
+     <p id="settings-status" role="status"></p>
+    </form>
+   </section>
+   <section id="transcript">
+    <h2 class="headingL">Transcript</h2>
+    <form id="upload-form" class="study-form">
+     <label for="transcript-file">歷年成績單 PDF</label>
+     <input id="transcript-file" type="file" accept="application/pdf,.pdf" required>
+     <div class="entry-actions">
+      <button class="crosshair-button" type="submit" id="upload-button"><span>匯入成績</span></button>
+      <button class="crosshair-button" type="button" id="clear-transcript"><span>清除成績</span></button>
+     </div>
+    </form>
+    <p id="upload-status" role="status" aria-live="polite"></p>
+    <div id="course-results"></div>
+    <section id="audit-panel" hidden>
+     <h2 class="headingL">Audit</h2>
+     <button id="confirm-audit" class="crosshair-button" type="button"><span>確認成績並檢核</span></button>
+     <p id="audit-status" role="status"></p>
+     <div class="audit-card">
+      <div id="audit-chart"></div>
+     </div>
+    </section>
+   </section>
+  </div>
+ </div></main>
+ <footer><small>UT-checker. Designed by <a href="https://hiro-design.net/utsusemi/" target="_blank" rel="noopener noreferrer">Utsusemi Design</a>.</small></footer>
+ <script src="js/common.js"></script>
+ <script src="app.js"></script>
+ <script type="application/json" id="settings-options">{"years":["111","112","113","114","115"],"programs":["地生（地球環境）","地生（生命科學）","物化（電子物理）","物化（應用化學）","數學","資科"]}</script>
+ <script src="forms.js"></script>
+ <script src="js/audit.js"></script>
+ <script src="js/convergence.js"></script>
 </body>
 </html>

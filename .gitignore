@@ -3,3 +3,5 @@ __pycache__/
 Thumbs.db
 .env
 qa/
+.streamlit/secrets.toml
+.pytest_cache/

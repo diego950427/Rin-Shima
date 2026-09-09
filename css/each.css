@@ -1,0 +1,335 @@
+@import url("root.css");
+
+/*－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+  
+  ＩＮＤＥＸ
+  
+  －－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－*/
+
+
+.fv {
+ .fv_illust {
+  height: calc(100vh - 140px);
+  margin-bottom: 30px;
+
+  img {
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+   object-position: center;
+   border-radius: 20px;
+   border: 4px solid var(--color-main);
+  }
+ }
+}
+
+@media screen and (min-width: 768px),
+print {
+ .fv {
+  grid-template-columns: 1fr 2fr;
+
+  .fv_illust {
+   position: sticky;
+   top: 110px;
+   height: calc(100vh - 140px);
+
+   img {
+    height: 100%;
+   }
+  }
+
+  .fv_text {
+   section:first-child {
+    padding-top: 0;
+   }
+  }
+ }
+}
+
+/*－－－－－－－－－－  更新履歴 －－－－－－－－－－*/
+
+.update__wrap {
+ margin: 20px 0px;
+
+ .headingM {
+  margin-bottom: 10px;
+ }
+}
+
+.update {
+ height: 140px;
+ overflow-y: auto;
+ padding: 4px;
+ padding-right: 20px;
+ border-top: 2px solid var(--color-main);
+ border-bottom: 2px solid var(--color-main);
+
+ .update__item {
+  display: flex;
+  gap: 0px 20px;
+  padding: 10px 0;
+
+  time {
+   font-weight: 600;
+   flex-shrink: 0;
+  }
+ }
+
+ .update__item:not(:last-child) {}
+}
+
+
+/* スマホ */
+@media screen and (max-width: 520px) {
+ .update__item {
+  flex-direction: column;
+  gap: 4px;
+ }
+}
+
+
+/*－－－－－－－－－－ TOPIC －－－－－－－－－－*/
+.topiclist {
+ margin-top: 30px;
+}
+
+.topiclist__item.grid {
+ gap: 10px 20px;
+ margin-bottom: 30px;
+ align-items: flex-start;
+
+ &:last-child {
+  margin-bottom: 0px;
+
+  p {
+   margin-bottom: 0px;
+  }
+ }
+}
+
+
+/*－－－－－－－－－－ Profile －－－－－－－－－－*/
+.profile__inner.grid {
+ margin-top: 40px;
+ gap: 20px;
+ align-items: flex-start;
+}
+
+.profile__img {
+ padding: 0 20px;
+}
+
+.profile__img img {
+ border-radius: 50%;
+ margin: auto;
+}
+
+/*  SNSアイコン  */
+.social-icons {
+ display: flex;
+ gap: 2px;
+ flex-wrap: wrap;
+ margin-top: 18px;
+}
+
+.social-icons a {
+ width: 46px;
+ height: 46px;
+ border-radius: 50%;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ text-decoration: none;
+ transition: all 0.2s ease;
+}
+
+.social-icons a:hover {
+ transform: translateY(-3px);
+}
+
+.social-icons svg {
+ width: 20px;
+ height: 20px;
+}
+
+/*－－－－－－－－－－ Contact －－－－－－－－－－*/
+.mailform {
+ margin-top: 30px;
+}
+
+
+/*－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+
+Gallery
+
+－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－*/
+.gallery-header {
+ margin-bottom: 40px;
+ padding-bottom: 20px;
+ border-bottom: 4px solid var(--color-main);
+}
+
+.gallery-content {
+ :target {
+  scroll-margin-top: 100px;
+ }
+
+
+}
+
+.gallerylist {
+ display: grid;
+ grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+ /* 160pxの数字を変更することで、画像の最小幅を調整できます。 */
+ gap: 40px;
+ padding: 2px;
+}
+
+.gallerylist__item {
+ aspect-ratio: 3 / 4;
+ overflow: hidden;
+ cursor: pointer;
+ background-color: var(--color-bg);
+ border-radius: 20px;
+}
+
+.gallerylist__item img {
+ width: 100%;
+ height: 100%;
+ object-fit: cover;
+ transition: transform 0.4s ease;
+}
+
+.gallerylist__item:hover img {
+ transform: scale(1.05);
+}
+
+/* 画像表示：全画面レイアウト */
+#detail-view {
+ position: fixed;
+ top: 0;
+ left: 0;
+ width: 100vw;
+ height: 100vh;
+ background-color: var(--color-bg);
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ z-index: 2000;
+ cursor: pointer;
+}
+
+
+.detail-content {
+ width: 90%;
+ height: 90%;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+
+ p {
+  max-width: 80%;
+ }
+}
+
+#full-image {
+ max-width: 100%;
+ max-height: 100%;
+ object-fit: contain;
+ margin-bottom: 20px;
+}
+
+/* 表示切り替え用クラス */
+.hidden {
+ display: none !important;
+}
+
+/*－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+
+Blog
+
+－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－*/
+
+.blog-header {
+ margin-bottom: 60px;
+ padding-bottom: 20px;
+ border-bottom: 4px solid var(--color-main);
+}
+
+.control-links {
+ position: absolute;
+ top: 100px;
+ right: 20px;
+}
+
+.mainarea {}
+
+.onelogbox {
+ margin-bottom: 60px;
+ background-color: var(--color-white);
+ padding: 30px;
+ border-radius: 40px;
+ border: 2px solid var(--color-main);
+
+ .oneloginfo {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0px 20px;
+  font-size: 0.8em;
+  color: var(--color-main);
+
+  time,
+  >span {
+   display: flex;
+   align-items: center;
+   gap: 4px;
+
+   svg {
+    width: 16px;
+    height: 16px;
+   }
+  }
+ }
+}
+
+.pagenavi {
+
+ .pagelinks {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+
+  .prevlink,
+  .nextlink {
+   display: flex;
+   align-items: center;
+   gap: 4px;
+   padding: 4px 10px 4px 12px;
+  }
+ }
+
+ .pagenums {
+  text-align: center;
+
+  a {
+   display: inline-block;
+   width: 38px;
+   height: 38px;
+  }
+ }
+
+
+ a {
+  padding: 8px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  border-radius: 999px;
+ }
+
+ a:hover {
+  background-color: var(--color-main);
+  color: var(--color-white);
+ }
+}

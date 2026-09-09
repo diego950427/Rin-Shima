@@ -1,0 +1,226 @@
+{
+  "confirmed_on": "2026-09-08",
+  "status": "已確認資料",
+  "change_requires": "使用者重新明確授權",
+  "scope_note": "113 地生非師培主修；114 資科雙主修 15+25=40。不得將此確認延伸為個人行政核准。",
+  "rules": {
+    "earth_113": {
+      "total_req": 85,
+      "common_compulsory": {
+        "total_req": 24,
+        "courses": {
+          "普通生物學(上)": 3,
+          "普通生物學(下)": 3,
+          "普通生物學實驗": 1,
+          "地球科學(上)": 3,
+          "地球科學(下)": 3,
+          "地球科學實驗": 1,
+          "資料處理與分析": 3,
+          "基礎生態學": 3,
+          "環境影響評估": 2
+        }
+      },
+      "common_alternatives": [
+        {
+          "label": "專題研究／專業實習（擇一）",
+          "required_credits": 2,
+          "options": {
+            "專題研究": 2,
+            "專業實習": 2
+          }
+        }
+      ],
+      "domains": {
+        "domain_req": 14,
+        "domain_elective_req": 20,
+        "other_elective_req": 27,
+        "地球環境": {
+          "compulsory": {
+            "地質學": 3,
+            "氣象學": 3,
+            "地球環境變遷": 2,
+            "衛星遙測學": 2,
+            "海洋學": 2,
+            "地球歷史": 2
+          },
+          "electives": {
+            "地形學": 3,
+            "古生物學": 2,
+            "地球物理通論": 3,
+            "環境地質學": 3,
+            "火山學": 2,
+            "水文地質學": 2,
+            "礦物與岩石學": 3,
+            "氣候學": 3,
+            "海洋地質概論": 2,
+            "野外地質學": 3,
+            "地震學": 3,
+            "天文學": 2,
+            "沈積學": 2,
+            "構造地質學": 3,
+            "工程地質": 3,
+            "地球化學導論": 3,
+            "地層學": 3,
+            "大氣動力學": 2,
+            "大氣化學": 2,
+            "地球科學文獻導讀": 2,
+            "台灣區域地質與調查": 2,
+            "第四紀環境變遷": 2,
+            "大臺北都會區之應用地質學": 2
+          }
+        },
+        "生命科學": {
+          "compulsory": {
+            "生物化學": 3,
+            "脊椎動物學": 3,
+            "遺傳學(含實驗)": 3,
+            "分子生物學(一)": 3,
+            "分子生物學(二)": 2
+          },
+          "electives": {
+            "自然保育概論": 2,
+            "動物系統分類學": 2,
+            "生物化學實驗": 1,
+            "植物形態解剖學": 2,
+            "植物生理學": 2,
+            "無脊椎動物學": 3,
+            "海洋生物學": 3,
+            "昆蟲學": 3,
+            "植物系統分類學": 3,
+            "基因體學": 3,
+            "動物生理學": 3,
+            "細胞生物學": 3,
+            "動物行為學": 3,
+            "生物資訊學導論": 2,
+            "病毒學": 2,
+            "生物地理": 3,
+            "微生物資源與應用": 3,
+            "生物技術學": 3,
+            "環境生態與生物資源調查": 2,
+            "生態學特論": 3,
+            "演化生物學": 3,
+            "免疫學": 3,
+            "生技產業概論": 2
+          }
+        }
+      },
+      "common_electives": {
+        "Python程式設計與應用": 3,
+        "微積分": 3,
+        "普通物理學(含實驗)": 3,
+        "環境教育": 2,
+        "全球環境變遷": 2,
+        "普通化學(含實驗)": 3,
+        "有機化學": 3,
+        "地理資訊系統": 3,
+        "自然體驗": 2,
+        "環境科學": 2,
+        "微生物學": 2,
+        "生物多樣性": 2,
+        "環境化學": 2,
+        "未來生態學": 2,
+        "統計學": 3,
+        "環境規劃與管理": 2,
+        "生物統計學": 3,
+        "數值分析": 3,
+        "數值地形分析": 3,
+        "巨量資料探勘": 3,
+        "科學文獻導讀": 2,
+        "環境問題調查": 2,
+        "保育生物學": 2,
+        "保育法規與國際公約": 2,
+        "環境倫理學": 2,
+        "生命科學發展史": 2,
+        "未來地球": 2
+      }
+    },
+    "cs_double_114": {
+      "compulsory": {
+        "計算機概論": 3,
+        "C程式設計": 3,
+        "Java程式設計": 3,
+        "資料結構": 3,
+        "演算法": 3
+      },
+      "compulsory_req": 15,
+      "other_req": 25,
+      "total_req": 40
+    }
+  },
+  "thresholds": {
+    "primary:113:earth:earth_environment": {
+      "total": 128,
+      "university_common": 28,
+      "major_total": 85,
+      "major_common": 24,
+      "domain_required": 14,
+      "domain_elective": 20,
+      "other_elective": 27,
+      "free": 15
+    },
+    "primary:113:earth:life_science": {
+      "total": 128,
+      "university_common": 28,
+      "major_total": 85,
+      "major_common": 24,
+      "domain_required": 14,
+      "domain_elective": 20,
+      "other_elective": 27,
+      "free": 15
+    },
+    "target:double_major:114:cs": {
+      "schema": "double_major_40",
+      "total": 40,
+      "total_required": 40,
+      "base": 15,
+      "other": 25,
+      "base_required": 15,
+      "other_required": 25
+    }
+  },
+  "earth_university_common": {
+    "required": 10,
+    "categories": {
+      "art": 4,
+      "civic": 4,
+      "humanities": 4,
+      "nature": 4
+    },
+    "common_elective": 2,
+    "total": 28
+  },
+  "earth_free_elective": {
+    "minimum": 15,
+    "science_college_minimum": 3,
+    "exclude": [
+      "通識",
+      "體育"
+    ]
+  },
+  "sources": [
+    {
+      "file": "data/confirmed_sources/113-earth-structure.png",
+      "sha256": "c23624f61498a0f649738df49944bf4c79ca9b3bc84d4cb482d15f4f9a190433"
+    },
+    {
+      "file": "data/confirmed_sources/113-earth-common-required.png",
+      "sha256": "f0d0626da3c73de16b97abf374711325ac9f672edd9f1753c2beca5d5375446f"
+    },
+    {
+      "file": "data/confirmed_sources/113-earth-common-electives.png",
+      "sha256": "ce4a1671d8ee95c2b046c1cb4b4ff3a9ff4fb2d57578ed9da7a907d14f1df5b2"
+    },
+    {
+      "file": "data/confirmed_sources/113-earth-domains.png",
+      "sha256": "022229803e81583911291da2908ecf485d8198cab240d8fe820cc48c516547b1"
+    },
+    {
+      "file": "data/confirmed_sources/113-earth-domains-free.png",
+      "sha256": "666f796f9b00df7c7d7829d3e455abefa021ca421f00a8af8951d2dfb64fb51c"
+    },
+    {
+      "file": "data/confirmed_sources/114-cs-double-major.png",
+      "sha256": "05e916364aac3fb90ca1637379f00524108e615ab708482c3b8307a62f0b242f"
+    }
+  ]
+}
