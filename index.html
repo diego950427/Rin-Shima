@@ -25,7 +25,8 @@
   <button id="js-hamburger" class="hamburger" aria-label="開啟選單" aria-expanded="false" aria-controls="js-globalnav"><span class="hamburger__line"></span></button>
   <nav id="js-globalnav" class="globalnav" aria-label="主選單"><ul class="globalnav__main">
    <li class="globalnav__item"><a href="#information">首頁</a></li>
-   <li class="globalnav__item"><a href="#about">功能</a></li>
+   <li class="globalnav__item"><a href="#about">學分</a></li>
+   <li class="globalnav__item"><a href="#course-lookup">查課</a></li>
   </ul></nav>
  </div></header>
  <main class="mainwrapper" id="js-main"><div class="fv --2column">
@@ -86,14 +87,36 @@
      </div>
     </section>
    </section>
+   <section id="course-lookup" hidden aria-labelledby="lookup-heading">
+    <h2 class="headingL" id="lookup-heading" tabindex="-1">Courses</h2>
+    <p class="lookup-source">115 上學期 · 博愛校區 · 2026/09/07 資料</p>
+    <form id="lookup-form" class="study-form" role="search">
+     <label>搜尋課程<input id="lookup-keyword" type="search" placeholder="課名、教師、課程代碼或教室" autocomplete="off"></label>
+     <div class="field-grid">
+      <label>系所<select id="lookup-department"><option value="">全部</option></select></label>
+      <label>年級／課程類別<select id="lookup-grade"><option value="">全部</option><option value="1">一年級</option><option value="2">二年級</option><option value="3">三年級</option><option value="4">四年級</option><option value="ge">通識</option><option value="common">共同選修</option></select></label>
+      <label>星期<select id="lookup-day"><option value="">全部</option><option>一</option><option>二</option><option>三</option><option>四</option><option>五</option><option>六</option><option>日</option></select></label>
+      <label>節次<select id="lookup-period"><option value="">全部</option></select></label>
+     </div>
+     <button class="crosshair-button" type="reset"><span>清除篩選</span></button>
+    </form>
+    <p id="lookup-status" role="status" aria-live="polite"></p>
+    <div id="lookup-results"></div>
+    <div class="lookup-pagination" hidden>
+     <button class="crosshair-button" id="lookup-prev" type="button"><span>上一頁</span></button>
+     <span id="lookup-page"></span>
+     <button class="crosshair-button" id="lookup-next" type="button"><span>下一頁</span></button>
+    </div>
+   </section>
   </div>
  </div></main>
  <footer><small>UT-checker. Designed by <a href="https://hiro-design.net/utsusemi/" target="_blank" rel="noopener noreferrer">Utsusemi Design</a>.</small></footer>
  <script src="js/common.js"></script>
- <script src="app.js"></script>
+ <script src="app.js?v=lookup-1"></script>
  <script type="application/json" id="settings-options">{"years":["111","112","113","114","115"],"programs":["地生（地球環境）","地生（生命科學）","物化（電子物理）","物化（應用化學）","數學","資科"]}</script>
  <script src="forms.js"></script>
  <script src="js/audit.js"></script>
  <script src="js/convergence.js"></script>
+ <script src="js/lookup.js"></script>
 </body>
 </html>
