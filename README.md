@@ -12,6 +12,8 @@ Streamlit 版本會將 PDF 傳到雲端記憶體解析，不寫入成績單檔�
 
 ## Streamlit 部署
 
+https://rin-shima.streamlit.app/
+
 使用 `diego950427/Rin-Shima`、`main` 分支、入口 `streamlit_app.py`。Community Cloud 安裝根目錄的 `requirements.txt`，建議 Python 3.12。本機可執行 `streamlit run streamlit_app.py` 測試相同入口。
 
 現有 HTML 介面透過 Streamlit 自訂元件與 Python 溝通，不依赖 localhost API，也不額外開公開連接埠。元件僅提供公開 UI 資產。
