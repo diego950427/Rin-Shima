@@ -15,8 +15,9 @@
  });
  window.utFetch=async(url,options)=>{
   if(options.signal?.aborted)throw new DOMException('Aborted','AbortError');
-  const operation=url.startsWith('/api/audit')?'audit':'transcript';
-  const pdf=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result.split(',')[1]);reader.onerror=()=>reject(Error('無法讀取檔案。'));reader.readAsDataURL(options.body);});
+  const operation=url.startsWith('/api/portal')?'portal':url.startsWith('/api/audit')?'audit':'transcript';
+  const credentials=operation==='portal'?JSON.parse(options.body):{};
+  const pdf=operation==='portal'?'':await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result.split(',')[1]);reader.onerror=()=>reject(Error('無法讀取檔案。'));reader.readAsDataURL(options.body);});
   if(options.signal?.aborted)throw new DOMException('Aborted','AbortError');
   return new Promise((resolve,reject)=>{
    const id=crypto.randomUUID();
@@ -24,7 +25,8 @@
    const timer=setTimeout(()=>{pending.delete(id);cleanup();reject(Error('雲端服務回應逾時，請重試。'));},120000);
    const cleanup=()=>{clearTimeout(timer);options.signal?.removeEventListener('abort',abort);};
    pending.set(id,{resolve,reject,cleanup});options.signal?.addEventListener('abort',abort,{once:true});
-   value({kind:'request',id,operation,pdf,confirmed:options.headers?.['X-Confirm-Courses']==='yes',settings:operation==='audit'?JSON.parse(new URL(url,location.href).searchParams.get('settings')):{}});
+   value({kind:'request',id,operation,pdf,...credentials,confirmed:options.headers?.['X-Confirm-Courses']==='yes',settings:operation==='audit'?JSON.parse(new URL(url,location.href).searchParams.get('settings')):{}});
+   delete credentials.password; delete credentials.account;
   });
  };
  document.querySelector('#clear-transcript').addEventListener('click',()=>value({kind:'clear'}));

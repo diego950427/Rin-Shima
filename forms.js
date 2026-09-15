@@ -54,6 +54,9 @@ document.querySelector('#clear-transcript').addEventListener('click', clearTrans
 document.querySelector('#upload-form').addEventListener('submit', async event => {
  event.preventDefault();
  const file = document.querySelector('#transcript-file').files[0];
+ await importTranscript(file);
+});
+async function importTranscript(file) {
  resetAudit(); uploadedFile=null; auditPanel.hidden=true;
  if (!file || !file.name.toLowerCase().endsWith('.pdf') || file.size > 20 * 1024 * 1024) {
   uploadStatus.textContent = '請選擇 20 MB 以內的 PDF。'; return;
@@ -88,4 +91,24 @@ document.querySelector('#upload-form').addEventListener('submit', async event =>
    ? '無法連線到成績解析服務，請確認本機服務已啟動後重試。'
    : error.message || '連線失敗，請重試。';
  } finally { if (request === current) { uploadButton.disabled = false; request = null; } }
+}
+
+const portalForm=document.querySelector('#portal-form');
+let portalRequest=null;
+document.querySelector('#clear-transcript').addEventListener('click',()=>{portalRequest?.abort();portalForm.reset();document.querySelector('#portal-status').textContent='';});
+portalForm.addEventListener('submit',async event=>{
+ event.preventDefault();
+ portalRequest?.abort();const current=new AbortController();portalRequest=current;
+ const button=portalForm.querySelector('button'),status=document.querySelector('#portal-status');
+ const body=JSON.stringify({account:portalForm.elements.account.value.trim(),password:portalForm.elements.password.value});
+ portalForm.elements.password.value='';button.disabled=true;status.textContent='正在取得成績單…';
+ try{
+  const response=await(window.utFetch||fetch)('/api/portal',{method:'POST',headers:{'Content-Type':'application/json'},body,signal:current.signal});
+  if(!response.headers.get('content-type')?.includes('application/json'))throw Error('登入服務尚未啟動，請稍後重試。');
+  const data=await response.json();if(!response.ok)throw Error(data.error||'登入失敗，請重試。');
+  if(current.signal.aborted)return;
+  const bytes=Uint8Array.from(atob(data.pdf),c=>c.charCodeAt(0));
+  status.textContent='';await importTranscript(new File([bytes],'transcript.pdf',{type:'application/pdf'}));
+ }catch(error){if(error.name!=='AbortError')status.textContent=error.message||'登入失敗，請重試。';}
+ finally{if(portalRequest===current){button.disabled=false;portalRequest=null;}}
 });

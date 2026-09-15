@@ -2,6 +2,17 @@
 .fv_text > section[hidden], .lookup-pagination[hidden] {display:none!important;}
 #course-lookup {min-height:calc(100svh - 180px);}
 .lookup-source {font:14px/1.8 "Source Han Serif TC",serif;margin-bottom:28px;}
+.lookup-source-row {display:flex;align-items:center;gap:12px;margin-bottom:28px;}
+.lookup-source-row .lookup-source {margin:0;min-width:0;}
+.lookup-term-picker {position:relative;margin-left:0;flex:none;font:16px/1.8 "Source Han Serif TC",serif;}
+.lookup-term-picker summary {display:flex;align-items:center;justify-content:center;width:44px;height:44px;cursor:pointer;list-style:none;color:var(--color-main);}
+.lookup-term-picker summary::-webkit-details-marker {display:none;}
+.lookup-term-picker summary:focus-visible {outline:2px solid var(--color-main);outline-offset:2px;}
+.lookup-term-picker summary:hover {background:#ededed;}
+.lookup-term-options {position:absolute;right:0;top:100%;z-index:10;width:max-content;max-width:calc(100vw - 48px);padding:8px;background:var(--color-bg);border:1px solid var(--color-main);}
+.lookup-term-options button {display:block;width:100%;min-height:44px;padding:8px 16px;margin:0;border:0;background:transparent;color:inherit;font:inherit;text-align:left;cursor:pointer;}
+.lookup-term-options button:not(:disabled):hover {background:#ededed;}
+.lookup-term-options button:disabled {color:#707070;cursor:default;}
 #lookup-form input[type=search] {width:100%;padding:12px;border:1px solid var(--color-main);background:transparent;color:inherit;font:inherit;margin:8px 0 24px;}
 #lookup-status {font:16px/1.8 "Source Han Serif TC",serif;margin:28px 0 12px;}
 .lookup-course {padding:24px 0;border-top:1px solid var(--color-main);font:16px/1.9 "Source Han Serif TC",serif;overflow-wrap:anywhere;}
@@ -24,6 +35,14 @@
 .convergence-total { font-size:24px; margin:14px 0; }
 /* Text-state switch adapted from Uiverse.io by Bodyhc. */
 .program-progress { position:relative; margin-top:48px; }
+.portal-form { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto; gap:12px 16px; align-items:end; margin:24px 0; font-family:"Source Han Serif TC",serif; font-size:16px; }
+.portal-form label { display:grid; gap:6px; }
+.portal-form input { box-sizing:border-box; width:100%; min-width:0; height:44px; padding:8px 10px; border:1px solid var(--color-main); background:var(--color-bg); color:var(--color-text); font:inherit; }
+.portal-form input { margin:10px 0 0; }
+.portal-form .crosshair-button { box-sizing:border-box; height:44px; min-height:44px; margin:0; padding-inline:18px; }
+.portal-form p { grid-column:1/-1; margin:0; }
+.portal-form p:empty { display:none; }
+@media(max-width:600px) { .portal-form { grid-template-columns:minmax(0,1fr) minmax(0,1fr); } .portal-form button { grid-column:1/-1; justify-self:start; } }
 .program-progress .total-ring { margin-top:0; }
 .program-switch { display:flex; justify-content:flex-end; margin-bottom:12px; }
 .program-switch input { position:absolute; width:1px; height:1px; opacity:0; }

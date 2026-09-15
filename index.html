@@ -77,6 +77,12 @@
      </div>
     </form>
     <p id="upload-status" role="status" aria-live="polite"></p>
+    <form id="portal-form" class="portal-form">
+     <label>學號<input name="account" autocomplete="username" required maxlength="128"></label>
+     <label>密碼<input name="password" type="password" autocomplete="current-password" required maxlength="512"></label>
+     <button class="crosshair-button" type="submit"><span>登入匯入</span></button>
+     <p id="portal-status" role="status" aria-live="polite"></p>
+    </form>
     <div id="course-results"></div>
     <section id="audit-panel" hidden>
      <h2 class="headingL">Audit</h2>
@@ -89,12 +95,22 @@
    </section>
    <section id="course-lookup" hidden aria-labelledby="lookup-heading">
     <h2 class="headingL" id="lookup-heading" tabindex="-1">Courses</h2>
-    <p class="lookup-source">115 上學期 · 博愛校區 · 2026/09/07 資料</p>
+    <div class="lookup-source-row">
+     <p class="lookup-source">115 上學期 · 博愛校區 · 2026/09/07 資料</p>
+     <details class="lookup-term-picker">
+      <summary aria-label="切換查課學期" title="切換查課學期"><svg viewBox="0 0 16 12" width="14" height="11" aria-hidden="true"><path d="M2 3h12l-6 7z" fill="currentColor"/></svg></summary>
+      <div class="lookup-term-options" role="group" aria-label="查課學期">
+       <button type="button" aria-current="true" data-lookup-term="115_1">115 上學期</button>
+       <button type="button" data-lookup-term="114_2">114 下學期</button>
+       <button type="button" data-lookup-term="114_1">114 上學期</button>
+      </div>
+     </details>
+    </div>
     <form id="lookup-form" class="study-form" role="search">
      <label>搜尋課程<input id="lookup-keyword" type="search" placeholder="課名、教師、課程代碼或教室" autocomplete="off"></label>
      <div class="field-grid">
       <label>系所<select id="lookup-department"><option value="">全部</option></select></label>
-      <label>年級／課程類別<select id="lookup-grade"><option value="">全部</option><option value="1">一年級</option><option value="2">二年級</option><option value="3">三年級</option><option value="4">四年級</option><option value="ge">通識</option><option value="common">共同選修</option></select></label>
+      <label>年級／課程類別<select id="lookup-grade"><option value="">全部</option><option value="1">大學一年級</option><option value="2">大學二年級</option><option value="3">大學三年級</option><option value="4">大學四年級</option><option value="graduate">研究所</option><option value="ge">通識</option><option value="common">共同選修</option></select></label>
       <label>星期<select id="lookup-day"><option value="">全部</option><option>一</option><option>二</option><option>三</option><option>四</option><option>五</option><option>六</option><option>日</option></select></label>
       <label>節次<select id="lookup-period"><option value="">全部</option></select></label>
      </div>
@@ -117,6 +133,6 @@
  <script src="forms.js"></script>
  <script src="js/audit.js?v=program-switch-1"></script>
  <script src="js/convergence.js?v=program-switch-1"></script>
- <script src="js/lookup.js"></script>
+ <script src="js/lookup.js?v=semester-snapshots-1"></script>
 </body>
 </html>

@@ -1,0 +1,14 @@
+const assert=require('node:assert/strict');
+const {lookupMatchesGrade}=require('../js/lookup.js');
+const {courses}=require('../assets/semester_courses_115_1.json');
+const department=courses.filter(c=>c.departments.includes('地球環境暨生物資源學系'));
+const first=department.filter(c=>lookupMatchesGrade(c,'1'));
+assert(!lookupMatchesGrade(courses.find(c=>c.course_code==='0879'),'1'));
+assert.equal(first.length,6);
+assert(first.every(c=>c.class_name==='地生系一'));
+assert(department.filter(c=>lookupMatchesGrade(c,'graduate')).every(c=>c.class_name.includes('碩')));
+assert(!lookupMatchesGrade({class_name:'環教碩一',mixed_classes:''},'1'));
+assert(lookupMatchesGrade({class_name:'物化系二',mixed_classes:'地生系一'},'1'));
+assert(!lookupMatchesGrade({class_name:'地生系二',mixed_classes:''},'1'));
+assert(!first.some(c=>/\([一二三四五六日]\)1(?:\D|$)/.test(c.teaching_raw)));
+console.log('PASS: actual catalog has six undergraduate first-year courses; graduate separation and mixed classes verified.');

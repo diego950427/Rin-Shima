@@ -14,6 +14,27 @@ from audit_bridge import audit_courses
 def handle_request(request):
     request_id = str(request.get('id', ''))[:100]
     try:
+        if request.get('operation') == 'portal':
+            from scraper import fetch_transcript, PortalError, PortalErrorCode
+            account = str(request.pop('account', '')).strip()
+            password = request.pop('password', '')
+            if not account or not isinstance(password,str) or not password or len(account)>128 or len(password)>512:
+                raise ValueError('請填寫學號與密碼。')
+            try:
+                content=fetch_transcript(account,password)
+                info,_=parse_transcript_pdf(content)
+                diag=info.get('parse_diagnostics',{})
+                if str(info.get('student_id','')).strip().casefold()!=account.casefold():
+                    raise PortalError(PortalErrorCode.TRANSCRIPT_IDENTITY_MISMATCH)
+                if diag.get('complete') is not True or diag.get('fatal') or diag.get('reconciliation',{}).get('status')!='reconciled':
+                    raise PortalError(PortalErrorCode.TRANSCRIPT_VALIDATION_FAILED)
+                return {'id':request_id,'status':200,'data':{'pdf':base64.b64encode(content).decode('ascii')}}
+            except PortalError as error:
+                return {'id':request_id,'status':422,'data':{'error':str(error),'code':error.code.value}}
+            except Exception:
+                return {'id':request_id,'status':422,'data':{'error':'校務登入或成績取得失敗，請核對帳密後重試，或使用 PDF 匯入。'}}
+            finally:
+                password=None
         encoded = request.get('pdf', '')
         if not isinstance(encoded, str) or len(encoded) > ((MAX_PDF_BYTES + 2) // 3) * 4:
             raise ValueError('請上傳 20 MB 以內的 PDF。')

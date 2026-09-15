@@ -53,6 +53,17 @@ class Handler(SimpleHTTPRequestHandler):
         if self.headers.get('Origin') not in (None, f'http://{host}'):
             return self.send_json({'error': '不允許跨網站上傳。'}, 403)
         route = urlparse(self.path)
+        if route.path == '/api/portal':
+            from cloud_service import handle_request
+            try:
+                size=int(self.headers.get('Content-Length','0'))
+                if not 0<size<=4096: raise ValueError()
+                data=json.loads(self.rfile.read(size))
+                data['operation']='portal'
+                result=handle_request(data)
+                return self.send_json(result['data'],result['status'])
+            except Exception:
+                return self.send_json({'error':'登入請求無效，請重試。'},400)
         if route.path not in ('/api/transcript', '/api/audit'):
             return self.send_json({'error': '找不到功能。'}, 404)
         try:

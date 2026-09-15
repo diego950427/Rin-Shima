@@ -50,7 +50,7 @@ def _term_key(term):
 def course_sort_key(row):
     category = general_education_category(row)
     kind = {"必修": 0, "選修": 1}.get(course_type_label(row), 2)
-    return (0 if category else 1, category, _term_key(course_term(row)), kind)
+    return (0 if category else 1, category == "其他通識／共同選修", category, _term_key(course_term(row)), kind)
 
 
 def sorted_course_rows(rows):
@@ -61,7 +61,23 @@ def sorted_course_rows(rows):
 
 def grouped_course_rows(rows):
     groups = OrderedDict()
-    for row in sorted_course_rows(rows):
+    display_rows = []
+    for row in rows:
+        # Annual zero-credit rows still contain distinct graded attempts.
+        # Expand only for presentation; never modify audit inputs or totals.
+        semesters = []
+        if (not row.get("term") and not row.get("semester")
+                and str(row.get("total_credit", "")).strip() in ("0", "0.0", "0.00")):
+            for semester in ("1", "2"):
+                credit = row.get(f"sem{semester}_credit")
+                score = row.get(f"sem{semester}_score")
+                if str(credit).strip() not in ("0", "0.0", "0.00") or score in (None, "", "--"):
+                    continue
+                semesters.append(dict(row, term=f"{row.get('academic_year', '')}-{semester}",
+                                      semester=semester, semester_code=semester,
+                                      total_credit=0, credits=0, score=score, grade=score))
+        display_rows.extend(semesters or [row])
+    for row in sorted_course_rows(display_rows):
         category = general_education_category(row)
         title = f"通識課程｜{category}" if category else f"{course_term(row)} 學期"
         groups.setdefault(title, []).append(row)
